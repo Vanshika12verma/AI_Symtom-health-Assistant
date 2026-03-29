@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Dashboard | Jeevan Raksha</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+    background: linear-gradient(rgba(0,0,0,.6), rgba(0,0,0,.6)),
+    url("https://images.unsplash.com/photo-1586773860418-d37222d8fce3");
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Poppins, sans-serif;
+}
+.dashboard {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 900px;
+}
+.logout {
+    float: right;
+    background: #c62828;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 8px;
+    text-decoration: none;
+}
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+}
+.card {
+    background: #E8F5E9;
+    padding: 25px;
+    border-radius: 15px;
+    text-align: center;
+    cursor: pointer;
+}
+.card:hover { background: #C8E6C9; }
+</style>
+</head>
+
+<body>
+<div class="dashboard">
+    <a class="logout" href="/logout">Logout</a>
+    <h2>Welcome {{ name }} 🌱</h2>
+    <p>What would you like to do next?</p>
+
+    <div class="cards">
+        <div class="card" onclick="window.location.href='http://127.0.0.1:5002/'">
+        🧠 Medilingo
+        </div>
+        <div class="card" onclick="window.location.href='http://127.0.0.1:5004/'">
+        🩺 ArogyaMitra
+        </div>
+        <div class="card" onclick="location.href='/appointment'">📅 Appointment</div>
+        <div class="card" onclick="location.href='/medicine'">💊 Medicine Booking</div>
+    </div>
+</div>
+</body>
+</html>

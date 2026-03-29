@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ArogyaMitra</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+  <h1>Arogyaमित्र 🤖</h1>
+  <p id="aiText"></p>
+
+  <div class="progress">
+    <div class="progress-bar"></div>
+  </div>
+
+  <form action="/predict" method="post">
+
+    <div class="step active">
+      <input name="name" placeholder="Your Name" required>
+      <button type="button" onclick="nextStep()">Next</button>
+    </div>
+
+    <div class="step">
+      <textarea name="symptoms"
+        placeholder="Describe symptoms (हिंदी / English)"
+        required></textarea>
+      <button type="button" onclick="nextStep()">Next</button>
+    </div>
+
+    <div class="step">
+      <input type="number" name="duration"
+        placeholder="Duration (days)" required>
+      <button type="button" onclick="nextStep()">Next</button>
+    </div>
+
+    <div class="step">
+      <select name="language">
+        <option value="en">English</option>
+        <option value="hi">हिंदी</option>
+      </select>
+      <button type="submit">Analyze Symptoms</button>
+    </div>
+
+  </form>
+
+  <p class="note">⚠️ AI-based guidance only. Not a medical diagnosis.</p>
+</div>
+
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="hi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google" content="notranslate">
+    <title translate="no">जीवन Raksha – Register</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            height: 100vh;
+            background:
+                linear-gradient(rgb(102 100 100 / 15%), rgb(21 17 17 / 75%)),
+                url("https://images.unsplash.com/photo-1586773860418-d37222d8fce3");
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 420px;
+            background: #fff;
+            border-radius: 30px;
+            padding: 35px 25px;
+            box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.15);
+            text-align: center;
+            margin-bottom: 96px;
+        }
+
+        .logo {
+            font-size: 42px;
+            color: #2E7D32;
+            margin-bottom: 5px;
+        }
+
+        .app-name {
+            font-size: 26px;
+            font-weight: 700;
+            color: #2E7D32;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .heading {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .msg {
+            font-size: 14px;
+            color: #c62828;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 15px;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            border: 1px solid #ddd;
+            background: #F9F9F9;
+            font-size: 15px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #4CAF50;
+            background: #fff;
+        }
+
+        .eye {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #2E7D32;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 15px;
+            background: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background: #388E3C;
+        }
+
+        .links {
+            margin-top: 18px;
+            font-size: 14px;
+        }
+
+        .links a {
+            color: #4CAF50;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .footer {
+            margin-top: 22px;
+            font-size: 12px;
+            color: #777;
+        }
+
+        .lang span {
+            color: #4CAF50;
+            font-weight: 600;
+            margin: 0 6px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="card">
+
+    <i class="fas fa-hand-holding-medical logo"></i>
+
+    <div class="app-name" translate="no">जीवन Raksha</div>
+    <div class="subtitle">Rural Healthcare Application</div>
+
+    <div class="heading" id="heading">नया खाता बनाएँ</div>
+
+    <!-- FLASH MESSAGES -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% for category, msg in messages %}
+        <div class="msg">{{ msg }}</div>
+      {% endfor %}
+    {% endwith %}
+
+    <!-- REGISTER FORM -->
+    <form method="POST" action="/register_user">
+
+        <div class="input-group">
+            <input type="text" name="name" id="name" placeholder="पूरा नाम" required>
+        </div>
+
+        <div class="input-group">
+            <input type="tel" name="mobile" id="mobile" placeholder="मोबाइल नंबर" maxlength="10" required>
+        </div>
+
+        <div class="input-group">
+            <input type="password" name="password" id="password" placeholder="नया पासवर्ड" required>
+            <i class="fas fa-eye eye" onclick="togglePassword()"></i>
+        </div>
+
+        <button class="btn" id="btn">रजिस्टर करें</button>
+    </form>
+
+    <div class="links">
+        <span id="loginText">पहले से खाता है?</span>
+        <a href="/" id="loginLink">लॉगिन करें</a>
+    </div>
+
+    <div class="footer">
+        <div class="lang">
+            भाषा:
+            <span onclick="setHindi()">हिंदी</span> |
+            <span onclick="setEnglish()">English</span>
+        </div>
+        आपकी जानकारी सुरक्षित रखी जाएगी।
+    </div>
+
+</div>
+
+<script>
+function togglePassword() {
+    const pass = document.getElementById("password");
+    pass.type = pass.type === "password" ? "text" : "password";
+}
+
+function setEnglish() {
+    document.getElementById("heading").innerText = "Create New Account";
+    document.getElementById("name").placeholder = "Full Name";
+    document.getElementById("mobile").placeholder = "Mobile Number";
+    document.getElementById("password").placeholder = "New Password";
+    document.getElementById("btn").innerText = "Register";
+    document.getElementById("loginText").innerText = "Already have an account?";
+    document.getElementById("loginLink").innerText = "Login";
+}
+
+function setHindi() {
+    document.getElementById("heading").innerText = "नया खाता बनाएँ";
+    document.getElementById("name").placeholder = "पूरा नाम";
+    document.getElementById("mobile").placeholder = "मोबाइल नंबर";
+    document.getElementById("password").placeholder = "नया पासवर्ड";
+    document.getElementById("btn").innerText = "रजिस्टर करें";
+    document.getElementById("loginText").innerText = "पहले से खाता है?";
+    document.getElementById("loginLink").innerText = "लॉगिन करें";
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ArogyaMitra | Result</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f8fb;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: 40px auto;
+            background: #ffffff;
+            padding: 25px 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+        }
+
+        h3 {
+            text-align: center;
+            color: #1e8449;
+            margin-top: 10px;
+        }
+
+        h4 {
+            margin-top: 25px;
+            color: #34495e;
+        }
+
+        ul {
+            margin-left: 20px;
+        }
+
+        li {
+            margin-bottom: 6px;
+        }
+
+        .warning {
+            margin-top: 20px;
+            padding: 12px;
+            background-color: #fdecea;
+            color: #c0392b;
+            border-left: 5px solid #c0392b;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .footer-note {
+            margin-top: 25px;
+            font-size: 0.9em;
+            color: #777;
+            text-align: center;
+        }
+
+        .section {
+            background-color: #f9fbfc;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .speak-btn {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 18px;
+            font-size: 15px;
+            background-color: #1e8449;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .speak-btn:hover {
+            background-color: #166f3c;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>
+        {% if lang == 'hi' %}
+            नमस्ते {{ name }} 👋
+        {% else %}
+            Hello {{ name }} 👋
+        {% endif %}
+    </h2>
+
+    <!-- Result text (USED FOR VOICE) -->
+    <h3 id="resultText">{{ result }}</h3>
+
+    <!-- 🔊 READ ALOUD BUTTON -->
+    <button
+        class="speak-btn"
+        onclick="speakResult(
+            document.getElementById('voiceText').innerText,
+            '{{ 'hi' if lang == 'hi' else 'en' }}'
+        )"
+    >
+        🔊 Read Aloud
+    </button>
+
+    <!-- Hidden combined text for voice -->
+    <div id="voiceText" style="display:none;">
+        {{ result }}.
+        {% if lang == 'hi' %}
+            सुझाई गई दवाइयाँ:
+        {% else %}
+            Suggested medicines:
+        {% endif %}
+        {% for m in medicines %} {{ m }}, {% endfor %}.
+        {% if lang == 'hi' %}
+            देखभाल सलाह:
+        {% else %}
+            Care advice:
+        {% endif %}
+        {% for c in care %} {{ c }}, {% endfor %}.
+        {% if warning %}
+            {% if lang == 'hi' %}
+                कृपया तुरंत नज़दीकी अस्पताल जाएँ।
+            {% else %}
+                Please visit the nearest hospital immediately.
+            {% endif %}
+        {% endif %}
+    </div>
+
+    <div class="section">
+        <h4>
+            {% if lang == 'hi' %}
+                💊 सुझाई गई दवाइयाँ
+            {% else %}
+                💊 Suggested Medicines
+            {% endif %}
+        </h4>
+        <ul>
+            {% for m in medicines %}
+                <li>{{ m }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="section">
+        <h4>
+            {% if lang == 'hi' %}
+                🧘 देखभाल सलाह
+            {% else %}
+                🧘 Care Advice
+            {% endif %}
+        </h4>
+        <ul>
+            {% for c in care %}
+                <li>{{ c }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    {% if warning %}
+        <div class="warning">
+            {% if lang == 'hi' %}
+                ⚠️ कृपया तुरंत नज़दीकी अस्पताल जाएँ।
+            {% else %}
+                ⚠️ Please visit the nearest hospital immediately.
+            {% endif %}
+        </div>
+    {% endif %}
+
+    <div class="footer-note">
+        {% if lang == 'hi' %}
+            ⚠️ यह ऐप केवल सामान्य स्वास्थ्य जानकारी देता है।  
+            लक्षण बढ़ने पर डॉक्टर से सलाह लें।
+        {% else %}
+            ⚠️ This app provides basic health guidance only.  
+            Always consult a qualified doctor if symptoms persist or worsen.
+        {% endif %}
+    </div>
+
+</div>
+
+<!-- ✅ INCLUDE VOICE SCRIPT -->
+<script src="{{ url_for('static', filename='voice.js') }}"></script>
+
+</body>
+</html>
